@@ -1,5 +1,5 @@
 from fastapi_utils.cbv import cbv
-from config import MAIN_URL
+from config import MAIN_URL,VERSION
 from fastapi_utils.inferring_router import InferringRouter
 
 main_router = InferringRouter()
@@ -9,7 +9,7 @@ main_router = InferringRouter()
 class MainSource:
     @main_router.get(MAIN_URL)
     def get(self):
-        return "Hello GYM-BOTARRI"
+        return f"Version : {VERSION}"
     
     
 
