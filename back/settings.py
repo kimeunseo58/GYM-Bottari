@@ -1,0 +1,5 @@
+# Hyper-Params
+DEPLOY_MODE = True
+HOST = '192.168.0.32' if DEPLOY_MODE else '127.0.0.0'
+PORT = 10000 if DEPLOY_MODE else 8000
+VERSION = 'v1.0.0'
