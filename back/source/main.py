@@ -10,7 +10,7 @@ class MainSource:
     @main_router.get(MAIN_URL)
     def get(self):
         return f"Version : {VERSION}"
-    
+
     
 
 
