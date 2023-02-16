@@ -3,4 +3,3 @@ fastapi-utils
 loguru
 pymysql
 SQLAlchemy
-mysql
