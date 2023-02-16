@@ -6,6 +6,6 @@ import os
 MAIN_DIR = str(Path(__file__).parent)
 MAIN_URL = "/api/{VERSION}"
 
-MEMBER_URL = MAIN_DIR+"/menber"
+MEMBER_URL = MAIN_DIR+"/member"
 
 
