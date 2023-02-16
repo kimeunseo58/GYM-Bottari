@@ -1,26 +1,28 @@
 from settings import HOST,PORT,RELOAD,WORKERS
-from fastapi import FastAPI,Request,BackgroundTasks
+from fastapi import FastAPI,Request
 from source import main_router
 from loguru import logger
-from utils import request_parse,response_parse
+from utils import request_parse,response_parse,make_log
 
 import asyncio
 import uvicorn
+import sys
 
 app = FastAPI()
 app.include_router(main_router)
 
 @app.on_event("startup")
 async def init():
-    logger.add("log/BackendServer_{time:YYYY-MM-DD}.log",format="<green>{time:YYYY-MM-DD HH:mm:ss}</green>\n<blue>{message}</blue>\n")
+    logger.add("log/BackendServer_{time:YYYY-MM-DD}.log",format="<green>{time:YYYY-MM-DD HH:mm:ss}</green>\n<blue>{message}</blue>\n",rotation="1 days",enqueue=True)
     
 
 @app.middleware("http")
 async def watch_log(request: Request, call_next,):
-    start_log = request_parse(request)
+    start_log,start_time = request_parse(request)
     response = await call_next(request)
-    end_log = response_parse(response)
-    logger.info(start_log+"\n"+end_log)
+    end_log,end_time = response_parse(response)
+    log = make_log(start_log,end_log,start_time,end_time)
+    logger.info(log,)
     return response
 
 if __name__=="__main__":
